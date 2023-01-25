@@ -8,6 +8,8 @@ int main()
 	unsigned int bits = 4096;
 	OSSL_PARAM params[3];
 	EVP_PKEY* pkey = NULL;
+	BIO * bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);
+
 	EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_from_name(NULL, "RSA", NULL);
 
 	EVP_PKEY_keygen_init(pctx);
@@ -20,4 +22,5 @@ int main()
 	EVP_PKEY_generate(pctx, &pkey);
 	EVP_PKEY_print_private(bio_out, pkey, 0, NULL);
 	EVP_PKEY_CTX_free(pctx);
+	BIO_free_all(bio_out);
 }
