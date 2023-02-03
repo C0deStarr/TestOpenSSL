@@ -13,19 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\AsymmetricCiphers">
-      <UniqueIdentifier>{f52afe0e-98eb-4a26-be0c-fc893b5725a3}</UniqueIdentifier>
+    <Filter Include="pubkey">
+      <UniqueIdentifier>{ac81141a-61a1-4dcf-8f5c-33b2003799a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="aesccm.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="pubkey\rsa.cpp">
+      <Filter>pubkey</Filter>
     </ClCompile>
-    <ClCompile Include="rsa.cpp">
-      <Filter>Source Files\AsymmetricCiphers</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pubkey\rsa.h">
+      <Filter>pubkey</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

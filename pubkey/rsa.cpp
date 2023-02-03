@@ -2,7 +2,7 @@
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 
-int main()
+void GenerateRSAKeys()
 {
 	unsigned int primes = 3;
 	unsigned int bits = 4096;
