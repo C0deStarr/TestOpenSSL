@@ -3,5 +3,5 @@
 
 int main()
 {
-	//GenerateRSAKeys();
+	test_rsa();
 }
