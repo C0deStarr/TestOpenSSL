@@ -89,7 +89,8 @@ void ExportKeys(const EVP_PKEY* pKey
 		}
 
 		pFilePub = fopen(pStrFilePubPath, "w");
-		//PEM_write_RSAPublicKey(pFilePub, pRSA);
+		//PEM_write_RSA_PUBKEY(pFilePub, pRSA);
+		PEM_write_PUBKEY_ex(pFilePub, pKey, NULL, NULL);
 
 	}while(0);
 	
