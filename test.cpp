@@ -1,7 +1,7 @@
 
 #include "pubkey/rsa.h"
 
-int main()
+int main(int argc, char** argv)
 {
-	test_rsa();
+	test_rsa(argc, argv);
 }
