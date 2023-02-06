@@ -16,18 +16,21 @@
     <Filter Include="pubkey">
       <UniqueIdentifier>{ac81141a-61a1-4dcf-8f5c-33b2003799a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pubkey\rsa">
+      <UniqueIdentifier>{fbffd631-5659-427d-bf2b-03579ef56148}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pubkey\EVP_PKEY_RSA_keygen.c.cpp">
-      <Filter>pubkey</Filter>
+    <ClCompile Include="pubkey\rsa\EVP_PKEY_RSA_keygen.c.cpp">
+      <Filter>pubkey\rsa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pubkey\rsa.h">
-      <Filter>pubkey</Filter>
+    <ClInclude Include="pubkey\rsa\rsa.h">
+      <Filter>pubkey\rsa</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
