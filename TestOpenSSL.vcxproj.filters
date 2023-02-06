@@ -21,7 +21,7 @@
     <ClCompile Include="test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pubkey\rsa.cpp">
+    <ClCompile Include="pubkey\EVP_PKEY_RSA_keygen.c.cpp">
       <Filter>pubkey</Filter>
     </ClCompile>
   </ItemGroup>

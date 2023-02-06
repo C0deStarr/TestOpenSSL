@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pubkey\rsa.cpp" />
+    <ClCompile Include="pubkey\EVP_PKEY_RSA_keygen.c.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>

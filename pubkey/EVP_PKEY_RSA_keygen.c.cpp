@@ -39,7 +39,8 @@ static EVP_PKEY *generate_rsa_key_long(OSSL_LIB_CTX *libctx, unsigned int bits)
     unsigned int primes = 2;
 
     /* Create context using RSA algorithm. "RSA-PSS" could also be used here. */
-    genctx = EVP_PKEY_CTX_new_from_name(libctx, "RSA", propq);
+    //genctx = EVP_PKEY_CTX_new_from_name(libctx, "RSA", propq);
+    genctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
     if (genctx == NULL) {
         fprintf(stderr, "EVP_PKEY_CTX_new_from_name() failed\n");
         goto cleanup;
@@ -121,7 +122,11 @@ static EVP_PKEY *generate_rsa_key_short(OSSL_LIB_CTX *libctx, unsigned int bits)
 /*
  * Prints information on an EVP_PKEY object representing an RSA key pair.
  */
-static int dump_key(const EVP_PKEY *pkey)
+static int dump_key(FILE *pFile, const EVP_PKEY *pkey
+    // , const char* pStrFilePubPath
+    // , const char* pStrFilePriPath
+    , const unsigned char* pPassword
+    , int nPass)
 {
     int rv = 0;
     int bits = 0;
@@ -212,7 +217,7 @@ static int dump_key(const EVP_PKEY *pkey)
     fprintf(stdout, "\n\n");
 
     /* Output a PEM encoding of the public key. */
-    if (PEM_write_PUBKEY(stdout, pkey) == 0) {
+    if (PEM_write_PUBKEY(pFile, pkey) == 0) {
         fprintf(stderr, "Failed to output PEM-encoded public key\n");
         goto cleanup;
     }
@@ -222,7 +227,9 @@ static int dump_key(const EVP_PKEY *pkey)
      * not encrypted. You may wish to use the arguments to specify encryption of
      * the key if you are storing it on disk. See PEM_write_PrivateKey(3).
      */
-    if (PEM_write_PrivateKey(stdout, pkey, NULL, NULL, 0, NULL, NULL) == 0) {
+    if (PEM_write_PrivateKey(pFile, pkey
+        , EVP_des_ede3_cbc()
+        , pPassword, nPass, NULL, NULL) == 0) {
         fprintf(stderr, "Failed to output PEM-encoded private key\n");
         goto cleanup;
     }
@@ -244,6 +251,9 @@ int test_rsa(int argc, char **argv)
     EVP_PKEY *pkey = NULL;
     unsigned int bits = 4096;
     int bits_i, use_short = 0;
+
+    unsigned char arrPassword[] = "123";
+    int nPass = sizeof(arrPassword) - 1;
 
     /* usage: [-s] [<bits>] */
     if (argc > 1 && strcmp(argv[1], "-s") == 0) {
@@ -276,7 +286,7 @@ int test_rsa(int argc, char **argv)
         goto cleanup;
 
     /* Dump the integers comprising the key. */
-    if (dump_key(pkey) == 0) {
+    if (dump_key(stdout, pkey, arrPassword, nPass) == 0) {
         fprintf(stderr, "Failed to dump key\n");
         goto cleanup;
     }
