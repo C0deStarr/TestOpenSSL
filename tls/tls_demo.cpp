@@ -1,4 +1,5 @@
 #include "tls_demo.h"
+#include "tls_ctx.h"
 
 #include <iostream>
 #include <string>
@@ -12,12 +13,20 @@ void client(unsigned short port, char* ip)
 
 void server(unsigned short port)
 {
+    TLS_CTX ctx;
+    if (!ctx.InitServer("server.crt", "prikey.key"))
+    {
+        cout << "ctx.InitServer() failed£¡" << endl;
+        getchar();
+        return ;
+    }
+    cout << "ctx.InitServer() success£¡" << endl;
 
 }
 
 void test_tls(int argc, char** argv)
 {
-    unsigned short port = 20300;
+    unsigned short port = 23333;
     if (argc > 1)
     {
         
