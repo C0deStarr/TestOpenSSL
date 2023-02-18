@@ -17,6 +17,8 @@ public:
     int  Read(char* buf, int nBuf);
     int  Write(const char* data, int nData);
 
+    void PrintCert();
+    void PrintCipher();
 
     void Close();
 private:

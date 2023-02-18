@@ -242,6 +242,8 @@ bool MySSL::Connect()
 		return false;
 	}
 	cout << "SSL_connect success!" << endl;
+	PrintCert();
+	PrintCipher();
 	return bRet;
 }
 
@@ -268,3 +270,37 @@ void MySSL::Close()
 		_mp_ssl = nullptr;
 	}
 }
+
+void MySSL::PrintCert()
+{
+	if (!_mp_ssl) return;
+	
+	auto cert = SSL_get_peer_certificate(_mp_ssl);
+	if (cert == NULL)
+	{
+		cout << "no certificate" << endl;
+		return;
+	}
+	char buf[1024] = { 0 };
+	X509_NAME* sname = X509_get_subject_name(cert);
+	char* str = X509_NAME_oneline(sname, buf, sizeof(buf));
+	if (str)
+	{
+		cout << "subject:" << str << endl;
+	}
+	
+	X509_NAME* issuer = X509_get_issuer_name(cert);
+	str = X509_NAME_oneline(issuer, buf, sizeof(buf));
+	if (str)
+	{
+		cout << "issuer:" << str << endl;
+	}
+	X509_free(cert);
+}
+
+void MySSL::PrintCipher()
+{
+	if (!_mp_ssl)return;
+	cout << SSL_get_cipher(_mp_ssl) << endl;
+}
+
