@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <thread>
+#include <chrono>
 
 #ifdef _WIN32
 #include <WinSock2.h>
@@ -20,6 +23,8 @@ void client(unsigned short port, char* ip)
     sockaddr_in sa = {0};
     int sock = 0;
     MySSL myssl;
+    string data = "Client : ";
+
     if (!ctx.InitClient("server.crt", "cacert.pem"))
     {
         return ;
@@ -48,6 +53,25 @@ void client(unsigned short port, char* ip)
             cout << "Connect() err" << endl;
             break;
         }
+
+        // read/write
+        for (int i = 0; i < 10; i++)
+        {
+            stringstream ss;
+            ss << data;
+            ss << i;
+            int len = myssl.Write(ss.str().c_str(), ss.str().size());
+            if (len <= 0)
+                break;
+            char buf[1024] = { 0 };
+            len = myssl.Read(buf, sizeof(buf) - 1);
+            if (len > 0)
+                cout << buf << endl;
+
+            this_thread::sleep_for(chrono::seconds(1));
+        }
+
+        myssl.Close();
     }while(0);
 
     
@@ -57,6 +81,8 @@ void server(unsigned short port)
 {
     TLS_CTX ctx;
     MySSL ssl;
+    string data = "Server : ";
+
     if (!ctx.InitServer("server.crt", "prikey.key"))
     {
         cout << "ctx.InitServer() failed£¡" << endl;
@@ -100,8 +126,29 @@ void server(unsigned short port)
             ssl.Close();
             continue;
         }
+
+
+        // read/write
+        for (int i = 0; i < 10; i++)
+        {
+            stringstream ss;
+            ss << data;
+            ss << i;
+            int len = ssl.Write(ss.str().c_str(), ss.str().size());
+            if (len <= 0)
+                break;
+            char buf[1024] = { 0 };
+            len = ssl.Read(buf, sizeof(buf) - 1);
+            if (len > 0)
+                cout << buf << endl;
+
+            this_thread::sleep_for(chrono::seconds(1));
+        }
+
+        ssl.Close();
         
     }
+    
 }
 
 void test_tls(int argc, char** argv)

@@ -14,6 +14,10 @@ public:
     // client
     bool Connect();
 
+    int  Read(char* buf, int nBuf);
+    int  Write(const char* data, int nData);
+
+
     void Close();
 private:
     SSL* _mp_ssl = nullptr;

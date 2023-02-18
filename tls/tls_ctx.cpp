@@ -245,6 +245,18 @@ bool MySSL::Connect()
 	return bRet;
 }
 
+int MySSL::Read(char* buf, int nBuf)
+{
+	if (!_mp_ssl)return 0;
+	return SSL_read(_mp_ssl, buf, nBuf);
+}
+
+int MySSL::Write(const char* data, int nData)
+{
+	if (!_mp_ssl)return 0;
+	return SSL_write(_mp_ssl, data, nData);
+}
+
 void MySSL::Close()
 {
 	if (_mp_ssl)
