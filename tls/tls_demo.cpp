@@ -5,6 +5,8 @@
 #include <string>
 
 #ifdef _WIN32
+#include <WinSock2.h>
+#include <Ws2tcpip.h>
 #include <windows.h>
 #endif
 
@@ -12,7 +14,43 @@ using namespace std;
 
 void client(unsigned short port, char* ip)
 {
+    string strIp = ip;
+    TLS_CTX ctx;
+    int nRet = 0;
+    sockaddr_in sa = {0};
+    int sock = 0;
+    MySSL myssl;
+    if (!ctx.InitClient("server.crt", "cacert.pem"))
+    {
+        return ;
+    }
+    do {
+        sock = socket(AF_INET, SOCK_STREAM, 0);
+        sa.sin_family = AF_INET;
+        inet_pton(sa.sin_family, strIp.c_str(), &(sa.sin_addr.s_addr));
+        //sa.sin_addr.s_addr = inet_addr(strIp.c_str());
+        sa.sin_port = htons(port);
+        nRet = connect(sock, (sockaddr*)&sa, sizeof(sa));
+        if (0 != nRet)
+        {
+            cout << "connect " << ip << ":" << port << " faield!" << endl;
+            break;
+        }
+        cout << "connect " << ip << ":" << port << " success!" << endl;
 
+        if(!ctx.InitSSL(sock, myssl))
+        {
+            cout << "InitSSL() err" << endl;
+            break;
+        }
+        if (!myssl.Connect())
+        {
+            cout << "Connect() err" << endl;
+            break;
+        }
+    }while(0);
+
+    
 }
 
 void server(unsigned short port)
@@ -69,9 +107,14 @@ void server(unsigned short port)
 void test_tls(int argc, char** argv)
 {
     unsigned short port = 23333;
+
+#ifdef _WIN32
+    WSADATA wsa;
+    WSAStartup(MAKEWORD(2, 2), &wsa);
+#endif
+
     if (argc > 1)
     {
-        
         port = atoi(argv[1]);
     }
 

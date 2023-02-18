@@ -21,8 +21,8 @@ private:
 
 class TLS_CTX {
 public:
-
-
+    
+    ~TLS_CTX();
     /**
      * @brief 
      * @param crt_file 
@@ -36,7 +36,12 @@ public:
         , const char* server_key
         , const char* client_crt = nullptr);
 
+    bool InitClient(const char* server_crt
+        , const char* cacert);
+
     bool InitSSL(int socket, MySSL& myssl);
+
+    bool VerifyCRT(const char* crt);
 
 private:
     SSL_CTX* _mp_ssl_ctx = nullptr;
