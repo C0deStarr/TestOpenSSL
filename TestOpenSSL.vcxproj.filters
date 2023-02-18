@@ -30,13 +30,10 @@
     <ClCompile Include="pubkey\rsa\EVP_PKEY_RSA_keygen.c.cpp">
       <Filter>pubkey\rsa</Filter>
     </ClCompile>
-    <ClCompile Include="tls\tls_client.c">
+    <ClCompile Include="tls\tls_ctx.cpp">
       <Filter>tls</Filter>
     </ClCompile>
-    <ClCompile Include="tls\tls_server.c">
-      <Filter>tls</Filter>
-    </ClCompile>
-    <ClCompile Include="tls\tls_ctx.c">
+    <ClCompile Include="tls\tls_demo.cpp">
       <Filter>tls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,13 +41,10 @@
     <ClInclude Include="pubkey\rsa\rsa.h">
       <Filter>pubkey\rsa</Filter>
     </ClInclude>
-    <ClInclude Include="tls\tls_client.h">
-      <Filter>tls</Filter>
-    </ClInclude>
-    <ClInclude Include="tls\tls_server.h">
-      <Filter>tls</Filter>
-    </ClInclude>
     <ClInclude Include="tls\tls_ctx.h">
+      <Filter>tls</Filter>
+    </ClInclude>
+    <ClInclude Include="tls\tls_demo.h">
       <Filter>tls</Filter>
     </ClInclude>
   </ItemGroup>
