@@ -21,9 +21,15 @@
   <ItemGroup>
     <ClCompile Include="pubkey\rsa\EVP_PKEY_RSA_keygen.c.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="tls\tls_client.c" />
+    <ClCompile Include="tls\tls_ctx.c" />
+    <ClCompile Include="tls\tls_server.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pubkey\rsa\rsa.h" />
+    <ClInclude Include="tls\tls_client.h" />
+    <ClInclude Include="tls\tls_ctx.h" />
+    <ClInclude Include="tls\tls_server.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

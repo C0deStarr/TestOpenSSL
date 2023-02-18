@@ -19,6 +19,9 @@
     <Filter Include="pubkey\rsa">
       <UniqueIdentifier>{fbffd631-5659-427d-bf2b-03579ef56148}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tls">
+      <UniqueIdentifier>{7d248035-c058-46a7-b113-a30ff5667623}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -27,10 +30,28 @@
     <ClCompile Include="pubkey\rsa\EVP_PKEY_RSA_keygen.c.cpp">
       <Filter>pubkey\rsa</Filter>
     </ClCompile>
+    <ClCompile Include="tls\tls_client.c">
+      <Filter>tls</Filter>
+    </ClCompile>
+    <ClCompile Include="tls\tls_server.c">
+      <Filter>tls</Filter>
+    </ClCompile>
+    <ClCompile Include="tls\tls_ctx.c">
+      <Filter>tls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pubkey\rsa\rsa.h">
       <Filter>pubkey\rsa</Filter>
+    </ClInclude>
+    <ClInclude Include="tls\tls_client.h">
+      <Filter>tls</Filter>
+    </ClInclude>
+    <ClInclude Include="tls\tls_server.h">
+      <Filter>tls</Filter>
+    </ClInclude>
+    <ClInclude Include="tls\tls_ctx.h">
+      <Filter>tls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
