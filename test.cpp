@@ -6,4 +6,5 @@ int main(int argc, char** argv)
 {
 	//test_rsa(argc, argv);
 	test_tls(argc, argv);
+	return 0;
 }
